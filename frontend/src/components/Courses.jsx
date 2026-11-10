@@ -63,7 +63,7 @@ function Courses({ user, onCoursesClick }) {
     if (!values.course_name) values.course_name = null;
     if (!values.description) values.description = null;
 
-    if (!values.max_capacity || values.max_capacity < showEdit[5]) {
+    if (!values.max_capacity) {
       values.max_capacity = showEdit[4];
     }
 
