@@ -34,12 +34,13 @@ function AccountSettings({ user, onSettingsClick, checkLoggedIn }) {
       values.email,
     );
 
-    if (data.message) {
-      setMessage(data.message);
-    }
-
     if (error) {
       return console.error(error);
+    }
+
+    if (data.message) {
+      setMessage(data.message);
+      return;
     }
 
     setMessage('Successfully updated');
