@@ -75,7 +75,7 @@ function Courses({ user, onCoursesClick }) {
       return;
     }
 
-    const { error } = await fetchUpdateCourse(
+    const { data, error } = await fetchUpdateCourse(
       Number(showEdit[1]),
       values.course_name,
       values.description,
@@ -83,6 +83,14 @@ function Courses({ user, onCoursesClick }) {
     );
 
     if (error) return console.error(error);
+
+    if (data.message) {
+      setCurrentMessage(data.message);
+
+      setShowEdit([false, null, null, null, null, null]);
+
+      return;
+    }
 
     setCurrentMessage('Course updated successfully.');
 
