@@ -138,7 +138,7 @@ function Assignments({ user, onAssignmentsClick }) {
       due_date: form.elements.due_date.value || showEdit[4],
     };
 
-    const { error } = await fetchUpdateAssignment(
+    const { data, error } = await fetchUpdateAssignment(
       showEdit[1],
       values.title,
       values.description,
@@ -147,6 +147,14 @@ function Assignments({ user, onAssignmentsClick }) {
 
     if (error) {
       return console.error(error);
+    }
+
+    if (data?.message) {
+      setCurrentMessage(data.message);
+
+      setShowEdit([false, null, null, null, null]);
+
+      return;
     }
 
     setCurrentMessage('Assignment updated.');
