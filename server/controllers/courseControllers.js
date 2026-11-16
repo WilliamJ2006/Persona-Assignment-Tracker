@@ -125,6 +125,12 @@ const updateCourse = async (req, res, next) => {
 
     const { course_name, description, max_capacity } = req.body;
 
+    if (max_capacity < 0) {
+      return res
+        .status(400)
+        .send({ message: 'Max capacity cannot be below 0' });
+    }
+
     const updatedCourse = await courseModel.update(
       course_id,
       course_name,
