@@ -101,6 +101,12 @@ module.exports.find = async (course_id) => {
   return rows[0] || null;
 };
 
+module.exports.findByName = async (course_name) => {
+  const query = `SELECT * FROM courses WHERE course_name = $1`;
+  const { rows } = await pool.query(query, [course_name]);
+  return rows[0] || null;
+};
+
 module.exports.update = async (
   course_id,
   course_name,

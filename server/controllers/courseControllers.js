@@ -86,6 +86,13 @@ const createCourse = async (req, res, next) => {
         .send({ message: 'Max capacity cannot be below 0' });
     }
 
+    const existingName = await courseModel.findByName(course_name);
+    if (existingName) {
+      return res.status(409).send({
+        message: 'Course name already in use',
+      });
+    }
+
     const course = await courseModel.create(
       course_name,
       description,
@@ -129,6 +136,15 @@ const updateCourse = async (req, res, next) => {
       return res
         .status(400)
         .send({ message: 'Max capacity cannot be below 0' });
+    }
+
+    if (course_name) {
+      const existingName = await courseModel.findByName(course_name);
+      if (existingName && existingName.course_id !== course_id) {
+        return res.status(409).send({
+          message: 'Course name already in use',
+        });
+      }
     }
 
     const updatedCourse = await courseModel.update(
