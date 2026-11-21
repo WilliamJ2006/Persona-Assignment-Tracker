@@ -73,6 +73,12 @@ const isFull = async (req, res, next) => {
 
     const check = await enrollmentModel.getCapacityInfo(courseId);
 
+    if (check === null) {
+      return res.status(404).send({
+        message: 'Course not found.',
+      });
+    }
+
     if (!check) {
       return res.status(400).send({
         error: 'Course is full',
