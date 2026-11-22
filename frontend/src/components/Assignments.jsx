@@ -118,6 +118,12 @@ function Assignments({ user, onAssignmentsClick }) {
 
     setCurrentMessage('Assignment deleted successfully.');
 
+    if (shownStatusId === assignmentId) {
+      setShownStatusId(null);
+
+      setCompletionStatus(null);
+    }
+
     loadAssignments(viewMode);
   };
 
