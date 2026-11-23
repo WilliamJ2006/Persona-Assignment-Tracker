@@ -1,5 +1,6 @@
 const assignmentModel = require('../models/assignmentModel');
 const courseModel = require('../models/courseModel');
+const assignmentCompletionModel = require('../models/assignmentCompletionsModel');
 
 const listStudentAssignments = async (req, res, next) => {
   try {
@@ -58,6 +59,22 @@ const findAssignment = async (req, res, next) => {
     if (!assignment) {
       return res.status(404).send({
         message: 'Assignment not found.',
+      });
+    }
+
+    const { user_id, role } = req.session.user;
+
+    const canView =
+      role === 'professor'
+        ? assignment.professor_id === user_id
+        : await assignmentCompletionModel.verifyEnrollment(
+            assignment_id,
+            user_id,
+          );
+
+    if (!canView) {
+      return res.status(403).send({
+        message: 'You can only view assignments for your own courses.',
       });
     }
 
