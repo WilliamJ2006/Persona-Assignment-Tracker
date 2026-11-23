@@ -71,6 +71,15 @@ const updateUser = async (req, res, next) => {
         message: 'Please fill out atleast one field',
       });
 
+    if (email) {
+      const existingEmail = await userModel.findByEmail(email);
+      if (existingEmail && existingEmail.user_id !== userId) {
+        return res.status(409).send({
+          message: 'Email already in use',
+        });
+      }
+    }
+
     const user = await userModel.update(userId, password, email);
 
     if (!user) {

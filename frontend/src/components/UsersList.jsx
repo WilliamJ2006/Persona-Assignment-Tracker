@@ -91,7 +91,7 @@ function UsersList({ user, onUsersClick }) {
           users.map((user, index) => (
             <article
               className="userCard"
-              key={user.user_id}
+              key={`${user.user_id}-${user.course_id ?? ''}`}
               style={{
                 ['--i']: index,
               }}

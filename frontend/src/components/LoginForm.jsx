@@ -11,10 +11,10 @@ const LoginForm = ({ checkLoggedIn }) => {
       password: form.elements.password.value,
     };
     const { data, error } = await loginUser(values.username, values.password);
-    setMessage(data.message);
     if (error) {
       return console.error(error);
     }
+    setMessage(data.message);
     await checkLoggedIn();
     form.reset();
   };

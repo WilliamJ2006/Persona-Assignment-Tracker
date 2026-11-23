@@ -209,7 +209,7 @@ app.get(
   listProfessorCourses,
 );
 
-app.get('/api/courses/:course_id', findCourse);
+app.get('/api/courses/:course_id', checkAuthentication, findCourse);
 
 app.post('/api/courses', checkAuthentication, createCourse);
 

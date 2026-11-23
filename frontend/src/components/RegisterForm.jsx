@@ -20,8 +20,8 @@ const RegisterForm = ({ checkLoggedIn }) => {
       values.role,
       values.password,
     );
-    setMessage(data.message);
     if (error) return console.error(error);
+    setMessage(data.message);
     await checkLoggedIn();
     form.reset();
   };

@@ -8,10 +8,16 @@ const register = async (req, res, next) => {
         error: 'All fields are required.',
       });
     }
-    const existingUser = await userModel.findByUsername(username);
+    const existingUser = await userModel.findByUsername(username.trim());
     if (existingUser) {
       return res.status(409).send({
         message: 'Username already taken',
+      });
+    }
+    const existingEmail = await userModel.findByEmail(email.trim());
+    if (existingEmail) {
+      return res.status(409).send({
+        message: 'Email already in use',
       });
     }
     const user = await userModel.create(username, password, email, role);

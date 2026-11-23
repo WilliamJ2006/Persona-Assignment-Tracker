@@ -81,7 +81,7 @@ module.exports.getCapacityInfo = async (course_id) => {
 
   const { rows } = await pool.query(query, [course_id]);
 
-  if (rows.length === 0) return false;
+  if (rows.length === 0) return null;
 
   return (
     parseInt(rows[0].enrollment_count || 0) < parseInt(rows[0].max_capacity)

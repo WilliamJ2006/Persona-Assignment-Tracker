@@ -9,8 +9,8 @@ function AccountSettings({ user, onSettingsClick, checkLoggedIn }) {
 
   const handleClick = async () => {
     const { data, error } = await fetchDeleteUser(user.user_id);
-    if (data.message) setMessage(data.message);
     if (error) return console.error(error);
+    if (data.message) setMessage(data.message);
     await checkLoggedIn();
     return;
   };
