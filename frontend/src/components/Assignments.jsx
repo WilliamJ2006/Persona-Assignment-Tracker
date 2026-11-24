@@ -233,6 +233,12 @@ function Assignments({ user, onAssignmentsClick }) {
       return console.error(error);
     }
 
+    if (data?.message) {
+      setCurrentMessage(data.message);
+
+      return;
+    }
+
     setCompletionStatus(data);
 
     setShownStatusId(assignmentId);
