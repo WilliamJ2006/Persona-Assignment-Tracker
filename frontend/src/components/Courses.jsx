@@ -210,10 +210,16 @@ function Courses({ user, onCoursesClick }) {
   };
 
   const handleUnenroll = async (courseId) => {
-    const { error } = await fetchUnenrollCourse(courseId);
+    const { data, error } = await fetchUnenrollCourse(courseId);
 
     if (error) {
       console.error(error);
+      return;
+    }
+
+    if (data?.message) {
+      setCurrentMessage(data.message);
+
       return;
     }
 
