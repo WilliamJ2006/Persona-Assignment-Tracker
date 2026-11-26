@@ -112,6 +112,8 @@ const deleteUser = async (req, res, next) => {
       });
     }
 
+    req.session = null;
+
     res.send(user);
   } catch (err) {
     next(err);
