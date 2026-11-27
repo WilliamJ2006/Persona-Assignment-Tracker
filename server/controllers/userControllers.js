@@ -67,7 +67,7 @@ const updateUser = async (req, res, next) => {
     const { password, email } = req.body;
 
     if (!password && !email)
-      return res.status(404).send({
+      return res.status(400).send({
         message: 'Please fill out atleast one field',
       });
 
