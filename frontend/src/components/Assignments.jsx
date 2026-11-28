@@ -198,10 +198,16 @@ function Assignments({ user, onAssignmentsClick }) {
   };
 
   const handleUncomplete = async (assignmentId) => {
-    const { error } = await fetchUncompleteAssignment(assignmentId);
+    const { data, error } = await fetchUncompleteAssignment(assignmentId);
 
     if (error) {
       return console.error(error);
+    }
+
+    if (data?.message) {
+      setCurrentMessage(data.message);
+
+      return;
     }
 
     setCurrentMessage('Assignment uncompleted.');
